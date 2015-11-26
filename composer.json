@@ -14,11 +14,17 @@
     ],
     "require": {
         "php": ">=5.3",     
-        "lusitanian/oauth": "~0.3"
+        "lusitanian/oauth": "dev-intuit"
     },
     "require-dev": {
         "illuminate/support": "~4"
-    },    
+    },
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/raycho/PHPoAuthLib.git"
+        },
+    ],
     "require-all": true,
     "autoload": {    
         "psr-0": {
