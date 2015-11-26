@@ -23,7 +23,7 @@
         {
           "type": "vcs",
           "url": "https://github.com/raycho/PHPoAuthLib.git"
-        },
+        }
     ],
     "require-all": true,
     "autoload": {    
