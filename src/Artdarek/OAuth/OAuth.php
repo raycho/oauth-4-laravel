@@ -10,6 +10,7 @@ namespace Artdarek\OAuth;
 use Illuminate\Support\ServiceProvider;
 
 use \Config;
+use OAuth\Common\Http\Uri\Uri;
 use \URL;
 
 use \OAuth\ServiceFactory;
@@ -116,7 +117,7 @@ class OAuth
      * @param  array  $scope
      * @return \OAuth\Common\Service\AbstractService
      */
-    public function consumer( $service, $url = null, $scope = null )
+    public function consumer( $service, $url = null, $scope = null, $baseUri = null )
     {
         // get config
         $this->setConfig( $service );
@@ -137,9 +138,13 @@ class OAuth
             // get scope from config (default to empty array)
             $scope = $this->_scope;
         }
+        
+        if (!is_null($baseUri)) {
+            $baseUri = new Uri($baseUri);
+        }
 
         // return the service consumer object
-        return $this->_serviceFactory->createService($service, $credentials, $storage, $scope);
+        return $this->_serviceFactory->createService($service, $credentials, $storage, $scope, $baseUri);
 
     }
 }
