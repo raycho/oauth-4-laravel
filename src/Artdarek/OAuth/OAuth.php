@@ -71,14 +71,14 @@ class OAuth
         // if config/oauth-4-laravel.php exists use this one
         if ( Config::get('oauth-4-laravel.consumers') != null ) {
 
-            $this->_storage_name = Config::get('oauth-4-laravel.storage', 'Session');
+            $this->_storage_name = Config::get("oauth-4-laravel.storage");
             $this->_client_id = Config::get("oauth-4-laravel.consumers.$service.client_id");
             $this->_client_secret = Config::get("oauth-4-laravel.consumers.$service.client_secret");
             $this->_scope = Config::get("oauth-4-laravel.consumers.$service.scope", array() );
 
         // esle try to find config in packages configs
         } else {
-            $this->_storage_name = Config::get('oauth-4-laravel::storage', 'Session');
+            $this->_storage_name = Config::get("oauth-4-laravel::storage");
             $this->_client_id = Config::get("oauth-4-laravel::consumers.$service.client_id");
             $this->_client_secret = Config::get("oauth-4-laravel::consumers.$service.client_secret");
             $this->_scope = Config::get("oauth-4-laravel::consumers.$service.scope", array() );
@@ -91,10 +91,10 @@ class OAuth
      * @param string $storageName
      * @return OAuth\Common\\Storage
      */
-    public function createStorageInstance($storageName)
+    public function createStorageInstance($storageName, $user, $key, $stateKey)
     {
         $storageClass = "\\OAuth\\Common\\Storage\\$storageName";
-        $storage = new $storageClass();
+        $storage = new $storageClass($user, $key, $stateKey);
 
         return $storage;
     }
@@ -117,13 +117,20 @@ class OAuth
      * @param  array  $scope
      * @return \OAuth\Common\Service\AbstractService
      */
-    public function consumer( $service, $url = null, $scope = null, $baseUri = null )
+    public function consumer(
+      $service,
+      $baseUri = null,
+      $user,
+      $key = 'oauth_access_token',
+      $stateKey = 'oauth_authorization_state',
+      $url = null,
+      $scope = null)
     {
         // get config
         $this->setConfig( $service );
 
         // get storage object
-        $storage = $this->createStorageInstance( $this->_storage_name );
+        $storage = $this->createStorageInstance( $this->_storage_name, $user, $key, $stateKey );
 
         // create credentials object
         $credentials = new Credentials(
@@ -138,7 +145,7 @@ class OAuth
             // get scope from config (default to empty array)
             $scope = $this->_scope;
         }
-        
+
         if (!is_null($baseUri)) {
             $baseUri = new Uri($baseUri);
         }
