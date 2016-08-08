@@ -13,8 +13,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3",     
-        "lusitanian/oauth": "~1.0"
+        "php": ">=5.3",
+        "lusitanian/oauth": "dev-master"
     },
     "require-dev": {
         "illuminate/support": "~4"
@@ -26,10 +26,10 @@
         }
     ],
     "require-all": true,
-    "autoload": {    
+    "autoload": {
         "psr-0": {
             "Artdarek\\OAuth": "src/"
         }
-    },    
-    "minimum-stability": "dev"    
+    },
+    "minimum-stability": "dev"
 }
