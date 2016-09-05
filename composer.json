@@ -28,7 +28,7 @@
     "require-all": true,
     "autoload": {
         "psr-4": {
-            "Artdarek\\OAuth": "src"
+            "Artdarek\\OAuth\\": "src"
         }
     },
     "minimum-stability": "dev"
