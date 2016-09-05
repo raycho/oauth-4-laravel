@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @author     Dariusz Prząda <artdarek@gmail.com>
  * @copyright  Copyright (c) 2013
@@ -9,7 +9,7 @@ namespace Artdarek\OAuth;
 
 use Illuminate\Support\ServiceProvider;
 
-class OAuthServiceProvider extends ServiceProvider 
+class OAuthServiceProvider extends ServiceProvider
 {
 
     /**
@@ -26,7 +26,7 @@ class OAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('artdarek/oauth-4-laravel');
+        $this->package('raycho/oauth-4-laravel');
     }
 
     /**
